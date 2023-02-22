@@ -39,8 +39,8 @@ data_canc = data_canc[data_canc.Country.isna()==False]
 data_canc['Year'] = data_canc['Year'].astype(int)
 # Sum up the amount of several cancellations per country per year (Zambia, 2019)
 data_canc = data_canc.groupby(['Country', 'Year']).sum().reset_index()
-# This converts missing numbers to zeros, reverse that
-data_canc['USD Millions'] = data_canc['USD Millions'].replace(0, np.nan)
+# Previous command converts missing numbers to zeros, reverse that
+data_canc['USD Millions'] = data_canc['USD Millions'].replace(0, np.nan, regex=False)
 
 # CARI restructuring
 # Rename column '# of loans'
@@ -54,7 +54,7 @@ data_rest = data_rest[:-1]
 # Convert 'Year' column from float to integer
 data_rest['Year'] = data_rest['Year'].astype(int)
 # Remove asterisks from values
-data_rest['USD Millions'] = data_rest['USD Millions'].astype(str).str.replace('*', '')
+data_rest['USD Millions'] = data_rest['USD Millions'].astype(str).str.replace('*', '', regex=False)
 data_rest['USD Millions'] = data_rest['USD Millions'].astype(float)
 # # Divide into two data series: amount of restructuring, number of restructurings
 # data_rest_amt = data_rest[['Country', 'Year', 'USD Millions']]
@@ -76,9 +76,9 @@ d_cols = {}
 for col_old, col_new in zip(cols_bank, cols_bank_re):
     d_cols[col_old] = col_new
 data_bank = data_bank.rename(columns=d_cols)
-# Convert columns with numerical values to type float
+# Replace '..' with nan and convert columns with numerical values to type float
 for col in years:
-    data_bank[col] = data_bank[col].replace('..', np.nan).astype('float')
+    data_bank[col] = data_bank[col].replace('..', np.nan, regex=False).astype('float')
 
 ##################
 # Merge datasets #

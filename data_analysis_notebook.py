@@ -1,3 +1,7 @@
+"""
+### Load modules and read data
+"""
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -39,8 +43,8 @@ data_canc = data_canc[data_canc.Country.isna()==False]
 data_canc['Year'] = data_canc['Year'].astype(int)
 # Sum up the amount of several cancellations per country per year (Zambia, 2019)
 data_canc = data_canc.groupby(['Country', 'Year']).sum().reset_index()
-# This converts missing numbers to zeros, reverse that
-data_canc['USD Millions'] = data_canc['USD Millions'].replace(0, np.nan)
+# The previous command converts missing numbers to zeros, reverse that
+data_canc['USD Millions'] = data_canc['USD Millions'].replace(0, np.nan, regex=False)
 
 data_canc
 
@@ -57,7 +61,7 @@ data_rest = data_rest[:-1]
 # Convert 'Year' column from float to integer
 data_rest['Year'] = data_rest['Year'].astype(int)
 # Remove asterisks from values
-data_rest['USD Millions'] = data_rest['USD Millions'].astype(str).str.replace('*', '')
+data_rest['USD Millions'] = data_rest['USD Millions'].astype(str).str.replace('*', '', regex=False)
 data_rest['USD Millions'] = data_rest['USD Millions'].astype(float)
 
 data_rest
@@ -79,11 +83,11 @@ d_cols = {}
 for col_old, col_new in zip(cols_bank, cols_bank_re):
     d_cols[col_old] = col_new
 data_bank = data_bank.rename(columns=d_cols)
-# Convert columns with numerical values to type float
+# Replace '..' with nan and convert columns with numerical values to type float
 for col in years:
-    data_bank[col] = data_bank[col].replace('..', np.nan).astype('float')
+    data_bank[col] = data_bank[col].replace('..', np.nan, regex=False).astype('float')
 
-data_bank
+data_bank.head()
 
 ###############################################################################
 # ### Merge datasets
@@ -107,7 +111,7 @@ list(set(countries_rest).difference(countries_bank))
 countries_re_rest = {'ROC': 'Republic of China'}
 # Rename
 data_rest['Country'] = data_rest['Country'].replace(countries_re_rest)
-
+# See whether any country name of the debt cancellation dataset is not contained in the bank's list
 list(set(countries_canc).difference(countries_bank))
 
 ""
@@ -141,11 +145,6 @@ for col_name in aidd_indicators:
     cols_common = [c for c in cols_indicator if c in cols]
     # Merge the main dataset with the indicator
     data = pd.merge(data, indicator, on=cols_common, how='outer')
-
-data
-
-###############################################################################
-# This is the AidData dataset merged with the World Bank dataset. In the following, the set is merged with the remaining datasets.
 
 # Merge the CARI cancellation dataset with the main dataset
 # Reshape the data according to the world bank format: columns become rows and years become columns
@@ -188,7 +187,10 @@ data
 
 ###########################
 # This is the full dataset.
-#
+
+data['Series Name'].unique()
+
+###########################
 # ### Relation between amount of debt cancellation and CPIA debt policy rating
 #
 # CPIA criteria are provided on https://thedocs.worldbank.org/en/doc/69484a2e6ae5ecc94321f63179bfb837-0290032022/original/CPIA-Criteria-2021.pdf, pp. 12-14. Extract from a condition that is attached to a low rating of 1: "the country has recently engaged or in the near future will likely engage in debt restructuring negotiations." In other words, likely future, current, or recent debt restructuring should drag the rating down. On the other hand, it is unclear whether this part of the 2021 rating methodology has been applied throughout 2000-2020, the range of our data.
@@ -241,10 +243,9 @@ for country in countries:
             cpia_avg[country] = cpia_mean
             canc_tot[country] = canc.iloc[-1]
 
-r_cpia_canc
+###############################################################################
+# #### Visualize total debt cancellation vs cpia rating in a x-y plot
 
-""
-# Visualize total debt cancellation vs cpia rating
 fig, ax = plt.subplots(figsize = (17, 9))
 for country in canc_tot.keys():
     color = "#" + "%06x" % random.randint(0, 0xFFFFFF)
@@ -256,11 +257,12 @@ ax.set_ylabel('CPIA debt policy rating (higher rating, better policy)', fontsize
 ###############################################################################
 # Based on this visualization, there doesn't seem to be a trend that would, across countries, generally push the CPIA rating into a certain direction, based on the amount of debt cancellation received. However, it is possible that such a trend would appear if we could control for other variables that might influence the CPIA rating, and isolate the influence of the amount of debt cancellation
 #
-# Visualize correlation coefficient by country
+# #### Visualize correlation coefficient by country
 # Between 1 and 0: positive correlation (series a increases, series b increases)
-# 0: no correlation
-# Between 0 and -1: negative correlation (series a increases, series b decreases)
 #
+# 0: no correlation
+#
+# Between 0 and -1: negative correlation (series a increases, series b decreases)
 
 # Calculate mean and std of the correlation coefficient and plot the results
 r_countries = list(r_cpia_canc.keys())
@@ -298,5 +300,3 @@ list(set(countries_canc) & set(countries_govt))
 
 ###############################################################################
 # As the two data streams are mutually exclusive in their country coverage, there is no analysis to do
-
-
