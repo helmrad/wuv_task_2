@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="6031d667-7f62-4cab-b86e-7f22fa8e4350" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="2Liua9UX3bsMoII1kNkIXTEFc4E" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6031d667-7f62-4cab-b86e-7f22fa8e4350" name="Default Changelist" comment="" />
+      <created>1676366284365</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1676366284365</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="379" y="112" key="SettingsEditor" timestamp="1677080950632">
+      <screen x="0" y="0" width="1739" height="939" />
+    </state>
+    <state x="379" y="112" key="SettingsEditor/0.0.1739.939@0.0.1739.939" timestamp="1677080950632" />
+    <state width="876" height="477" key="XDebugger.FullValuePopup" timestamp="1677065030735">
+      <screen x="0" y="0" width="1739" height="939" />
+    </state>
+    <state width="876" height="477" key="XDebugger.FullValuePopup/0.0.1739.939@0.0.1739.939" timestamp="1677065030735" />
+    <state x="670" y="159" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1676824406131">
+      <screen x="0" y="0" width="1739" height="939" />
+    </state>
+    <state x="670" y="159" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1739.939@0.0.1739.939" timestamp="1676824406131" />
+  </component>
+</project>
